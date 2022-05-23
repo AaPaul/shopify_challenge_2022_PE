@@ -25,14 +25,15 @@ Python, Django, SQLite, Git
 - Basic exception handler, including ObjectDoesNotExist Error and Restricted Error in the database model
 
 Based on my understanding, I would like to create three tables in the database to implement all features, and their structrues show below. The first one is the table of Inventory and the other one is the table of Warehouse, where PK means primary key and FK means Foreign key. In Inventory table, we set the `Warehouse` attribute as a foreign key, **which is to satisfy the requirement that assign inventory to specific locations**. As we use the it can build a connection between Inventory and Warehouse. We don't have create a mapping table to store their connection. In this case, the value of this attributes in Inventory is limited which only depends on the value in Warehouse. The value which is not in the Warehouse would result in an Error.
+Besides, I also creat City table which is the third table for future extending.
 
 | ID | Name | Description | Warehouse | City |
-| :----: | :----:  | :----:  | :----:  |
+| :----: | :----:  | :----:  | :----:  | :----:  |
 | Integer (PK) | Char (Not Null) | Text | Integer (FK) | Integer (FK) |
 
-| ID | Name | City | 
-| :----: | :----:  | :----:  | 
-| Integer (PK) | Char (Not Null) | Integer (FK) | 
+| ID | Name | 
+| :----: | :----:  |
+| Integer (PK) | Char (Not Null) |
 
 | ID | Name | 
 | :----: | :----: |
@@ -46,33 +47,17 @@ Before we starting the test, we need to check if you have the required database 
 ```
 [
     {
-        "id": 9,
-        "name": "test2",
-        "description": "test2 description",
-        "warehouse": 9
-    },
-    {
-        "id": 8,
-        "name": "test1",
-        "description": null,
-        "warehouse": 3
-    },
-    {
-        "id": 4,
-        "name": "Emergen-C 1000mg Vitamin C Powder Supplement, Drink Mix with Electroyltes, Immune System Booster, Super Orange, 30 Packets",
-        "description": "YEAR-ROUND IMMUNE SYSTEM BOOSTER: Great for use all year round, Emergen-C packs a fizzy punch full of vitamins, antioxidant, and electrolytes that help support your immune health at home, in the office, or on the go.\r\nVITAMIN C: Each dose delivers 1,000 mg of vitamin C, which is more vitamin C than 10 oranges (based on Health Canada Nutrient Value of Common Foods, Orange).",
-        "warehouse": 1
-    },
-    {
-        "id": 3,
-        "name": "Emergen-C 1000mg Vitamin C Powder Supplement, Drink Mix with Electroyltes, Immune System Booster, Super Orange, 30 Packets",
-        "description": "YEAR-ROUND IMMUNE SYSTEM BOOSTER: Great for use all year round, Emergen-C packs a fizzy punch full of vitamins, antioxidant, and electrolytes that help support your immune health at home, in the office, or on the go.\r\nVITAMIN C: Each dose delivers 1,000 mg of vitamin C, which is more vitamin C than 10 oranges (based on Health Canada Nutrient Value of Common Foods, Orange).",
-        "warehouse": 1
+        "id": 2,
+        "name": "item2",
+        "description": "item2 description",
+        "city": 2,
+        "warehouse": 2
     },
     {
         "id": 1,
-        "name": "Mohap Fitted Sheet Queen Wide Band Deep Pocket Tight Fit Hotel Quality",
-        "description": "Queen size fitted sheet measures 60 by 80 inch with a 16 inch pocket. We have Black, White, Gray, Pink, Navy Blue and Teal available.\r\nAll-around elastic and deep pocket fits most of the oversized mattress.\r\nBrushed microfiber fabric is durable and soft.",
+        "name": "item1",
+        "description": "item1 description",
+        "city": 1,
         "warehouse": 1
     }
 ]
@@ -83,13 +68,42 @@ Before we starting the test, we need to check if you have the required database 
     {
         "id": 3,
         "name": "wh3",
-        "location": "8 West Street, Chicago"
+    },
+    {
+        "id": 2,
+        "name": "wh2",
     },
     {
         "id": 1,
         "name": "wh1",
-        "location": "401 King Road, Nepean"
     }
+]
+```
+
+- For City
+```
+[
+    {
+        "id": 1,
+        "name": "TORONTO"
+    },
+    {
+        "id": 2,
+        "name": "OTTAWA"
+    },
+    {
+        "id": 3,
+        "name": "KANATA"
+    },
+    {
+        "id": 4,
+        "name": "NEW YORK"
+    },
+    {
+        "id": 5,
+        "name": "VANCOUVER"
+    },
+
 ]
 ```
 
@@ -107,17 +121,18 @@ The url for adding new inventory item is `http://127.0.0.1:8000/inventory-create
 ![](./imgs/inventory_created.png)
 
 #### 3. Edit the inventory item
-The url for editting the item is `http://127.0.0.1:8000/inventory-update/<str:pk>/`. We are supposed to replace `<str:pk>` with a specific integer which represents the ID of the item in the database. For example, here we are going to update the item with ID 9. Original data shows below.
+The url for editting the item is `http://127.0.0.1:8000/inventory-update/<str:pk>/`. We are supposed to replace `<str:pk>` with a specific integer which represents the ID of the item in the database. For example, here we are going to update the item with ID 3. Original data shows below.
 ```
 {
-    "id": 9,
-    "name": "test2",
-    "description": null,
-    "warehouse": 3
+    "id": 3,
+    "name": "create-test",
+    "description": "create test description",
+    "city": 1,
+    "warehouse": 1
 }
 ```
-We set POST method and choose `raw` and `JSON`. Then input the information we want to change. Here we change all attributes. After sending the request, it will give you the response with success message and updated record. **In this part, we also implement the function that we can assign the warehouse to the item**.
-![](./imgs/inventory_updated_assign_warehouse3to9.png)
+We set POST method and choose `raw` and `JSON`. Then input the information we want to change. Here we change all attributes. After sending the request, it will give you the response with success message and updated record. **In this part, we also implement the function that we can assign the warehouse to the item (from warehouse 1 to warehouse 3)**.
+![](./imgs/inventory_updated_assign_warehouse1to3.png)
 
 If the item does not existed in the table, it will return the error message which points out that the required item is not in the table with status code 500 which means the internal error of the database.
 
