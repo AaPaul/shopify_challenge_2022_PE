@@ -4,9 +4,7 @@ Challenge description: [Fall 2022 - Shopify Developer Intern Challenge Question]
 
 [Github](https://github.com/AaPaul/shopify_challenge_2022_PE)
 
-[Replit publish address](https://replit.com/@bunabulapa/shopify-challenge?v=1)
-
-[Public access address](https://shopify-challenge.bunabulapa.repl.co/) (Powered by Replit)
+[Public access address](https://shopify-challenge-for-production-engineer.bunabulapa.repl.co) (Powered by Replit)
 
 ## Technologies
 Python, Django, SQLite, Git
