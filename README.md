@@ -1,8 +1,8 @@
 # Shopify-Backend-Internship-Challenge Fall 2022
 
-Challenge description: [Fall 2022 - Shopify Developer Intern Challenge Question](https://docs.google.com/document/d/1PoxpoaJymXmFB3iCMhGL6js-ibht7GO_DkCF2elCySU/edit#heading=h.n7bww7g70ipk)
+Challenge description: [Fall 2022 - Shopify Developer Intern Challenge Question](https://docs.google.com/document/d/1cgmV2DW5mEOxhh5ekyopU4Cef07FNalP7WqAJdgpBuw/edit?usp=sharing)
 
-[Github](https://github.com/AaPaul/Shopify-Backend-Intership-Challenge)
+[Github](https://github.com/AaPaul/shopify_challenge_2022_PE)
 
 [Replit publish address](https://replit.com/@bunabulapa/shopify-challenge?v=1)
 
@@ -112,7 +112,7 @@ Before we starting the test, we need to check if you have the required database 
 
 ### Inventory part
 #### 1. View of a list of all items
-The url for get all inventory items is `http://127.0.0.1:8000/inventory-list`.After sending a get request by Postman, we can get the result shows below.
+The url for get all inventory items is `http://127.0.0.1:8000/inventory-list`.After sending a get request by Postman, we can get the result shows below. Here is the result after adding 4 different items which is to satisfy the requirement that we are supposed to display at least 5 different cities' weather.
 ![](./imgs/inventory_list.png)
 
 #### 2. Adding a new inventory item
